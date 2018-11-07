@@ -86,5 +86,32 @@ variances
 
 ```
 
+#3. One-way ANOVA
 
+Single factor: common_name (species)
+Number of levels in the factor: 3 (Chinstrap, Gentoo, Adelie)
+Random Variable: flipper_length (mm)
+
+Is there a sig diff in mean flipper length (mm) for female Chinstrap, Gentoo and Adelie penguins?
+
+```{r}
+# HO: There is no difference in the means of flipper lengths accros all species
+# HA: At least 2 means differ significantly (mean flipper length)
+
+penguin_aov <- aov(flipper_length ~ common_name, data = penguins2)
+summary(penguin_aov)
+
+# At least two samples were taken from populations with different means. Which ones are different? All three are different from each other? Or somethign else?
+
+# post-hoc testing using tukey's hst
+
+penguin_ph <- TukeyHSD(penguin_aov)
+penguin_ph
+
+```
+#Mean flipper lengths for Adelie, Gentoo, and Chinstrap penguins are sig diff (F(df) = statistic, p < )
+#This means if we take samples from these 3 groups and they actually come from samples with the same mean flipper length there is almost no chance that this happens by random chance, so we conclude that the populations probably actually have different means. AT LEAST 2 SAMPLES WERE TAKEN FROM POPULATIONS WITH DIFFERENT MEANS.
+##There is a sig diff in flipper length between the 3 penguin species.
+
+#Mean flipper lengths are all diff
 
